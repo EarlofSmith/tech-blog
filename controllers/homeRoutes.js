@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../models');
 const checkAuth = require('../utils/auth');
+
+
 // get all posts
 router.get('/', checkAuth, async (req, res) => {
   try {
@@ -27,8 +29,31 @@ router.get('/login', (req, res) => {
     res.redirect('/');
     return;
   }
-
   res.render('login');
+});
+
+router.get('/post/:id', checkAuth, async (res, req) => {
+  try {
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes:['name']
+        },
+        {
+          model: Comment,
+          attributes:['name']
+        },
+      ]
+    })
+
+    if (postData) {
+      const post = postData.get({plain: true});
+      res.render('showpost', {post});
+    }else {
+      res.status(404).json({message: 'No post match this id'})
+    }
+  } catch (err){res.status(500).json(err)}
 });
 
 module.exports = router;
