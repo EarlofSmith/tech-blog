@@ -4,7 +4,7 @@ const session = require("express-session");
 const routes = require("./controllers");
 //include handlebars 
 const exphbs = require("express-handlebars");
-const helpers = require("./utils/handlebarshelpers");
+const helpers = require("./utils/helpers");
 //specify db connection for orm
 const sequelize = require("./config/connection");
 //init session state

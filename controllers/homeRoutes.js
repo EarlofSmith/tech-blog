@@ -3,8 +3,12 @@ const { User, Post, Comment } = require('../models');
 const checkAuth = require('../utils/auth');
 
 
+router.get('/', async (req, res) => {
+  // TODO: Render template with Sequelize data
+  res.render('homepage');
+});
 // get all posts
-router.get('/', checkAuth, async (req, res) => {
+router.get('/posts', checkAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
       include: [{
