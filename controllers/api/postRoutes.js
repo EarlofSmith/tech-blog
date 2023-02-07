@@ -5,7 +5,7 @@ const isAuth = require("../../utils/auth");
 //render post page
 router.get("/", async (req, res) => {
   const post = { name: "", content: "" }
-  res.render("editpost", { post, newPost: true, loggedIn: req.session.loggedIn });
+  res.render("posts", { post, newPost: true, loggedIn: req.session.loggedIn });
 });
 
 //create a post
