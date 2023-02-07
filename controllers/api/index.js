@@ -1,9 +1,9 @@
 const router = require('express').Router();
 // add correct routes to desired pages
 const userRoutes = require('./userRoutes');
-// const projectRoutes = require('./projectRoutes');
+const postRoutes = require('./postRoutes');
 
 router.use('/users', userRoutes );
-// router.use('/projects', );
+router.use('/posts', postRoutes);
 
 module.exports = router;
