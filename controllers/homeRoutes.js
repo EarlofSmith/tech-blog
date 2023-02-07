@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../models');
-const checkAuth = require('../utils/auth');
+const Auth = require('../utils/auth');
 
 
 router.get('/', async (req, res) => {
@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   res.render('homepage');
 });
 // get all posts
-router.get('/posts', checkAuth, async (req, res) => {
+router.get('/posts', Auth, async (req, res) => {
   try {
     const postData = await Post.findAll({
       include: [{
@@ -36,7 +36,7 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.get('/post/:id', checkAuth, async (res, req) => {
+router.get('/post/:id', Auth, async (res, req) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [

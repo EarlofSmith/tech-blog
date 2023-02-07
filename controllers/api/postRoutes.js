@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Post  = require('../../models/Post');
-const isAuth = require("../../utils/auth");
+const Auth = require("../../utils/auth");
 
 //render post page
 router.get("/", async (req, res) => {
@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
 //update a post
 
 //delete a post
-router.delete('/:id',isAuth, async (req, res) => {
+router.delete('/:id',Auth, async (req, res) => {
   try {
     const postData = await Post.destroy({
       where: {
