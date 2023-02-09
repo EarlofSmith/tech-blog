@@ -3,25 +3,26 @@ const { User, Post } = require("../models");
 const Auth = require("../utils/auth");
 
 // get all posts for specified user
-router.get('/', async (res, req) => {
+// get all posts for a user
+router.get("/", async (req, res) => {
     try {
         const postData = await Post.findAll({
-            where: {user_id: req.session.user_id},
+            where: { user_id: req.session.user_id },
             attributes: ['id', 'title', 'text', 'date_posted'],
             include: [{
                 model: User,
-                attributes: ['name']
+                attributes: ["name"]
             }]
         });
-        const posts = postData.map((post)=> post.get({plain: true}));
-        res.render('dashboard', {posts, loggedIn: req.session.loggedIn});
-    }catch (err) {
+        const posts = postData.map((post) => post.get({ plain: true }));
+        res.render("dashboard", { posts, loggedIn: req.session.loggedIn });
+    } catch (err) {
         res.status(500).json({message: "An error occurred, please try again."});
     }
 });
 
 // create a new post
-router.post("/post", Auth, async (req, res) => {
+router.post("/post",  async (req, res) => {
     try {
         const postData = await Post.create({
             title: req.body.title,
