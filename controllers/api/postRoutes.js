@@ -4,7 +4,7 @@ const Auth = require("../../utils/auth");
 
 //render post page
 router.get("/", async (req, res) => {
-  const post = { name: "", content: "" }
+  const post = { name: "", text: "" }
   res.render("posts", { post, newPost: true });
   // add , loggedIn: req.session.loggedIn back after true
 });

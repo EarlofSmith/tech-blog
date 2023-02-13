@@ -22,13 +22,18 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/posts", async (req, res) => {
+    const post = { name: "", text: "" }
+    res.render("posts", { post, newPost: true });
+    // add , loggedIn: req.session.loggedIn back after true
+  });
 // create a new post
 router.post("/post",  async (req, res) => {
     try {
         const postData = await Post.create({
             title: req.body.title,
             text: req.body.text,
-            user_id: req.session.user_id
+            // user_id: req.session.user_id
         });
         const post = postData.get({ plain: true });
         if (postData) {

@@ -10,7 +10,7 @@ const createPost = async (event) => {
     const text = postText.value;
     event.preventDefault();
     if(title.length > 0 && text.length > 0) {
-        const response = await fetch('dashboard/post', {
+        const response = await fetch('/dashboard/post', {
             method: "POST",
             body: JSON.stringify({ title, text }),
             headers: { "Content-Type": "application/json" },
