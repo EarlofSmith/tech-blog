@@ -4,9 +4,24 @@ const Auth = require("../../utils/auth");
 
 //render post page
 router.get("/", async (req, res) => {
-  const post = { name: "", text: "" }
-  res.render("posts", { post, newPost: true });
-  // add , loggedIn: req.session.loggedIn back after true
+  try {
+    const postData = await Post.findAll({
+      attributes: ['id', 'title', 'text', 'date_posted'],
+      include: [{
+        model: User,
+        attributes: ['name']
+      }],
+    });
+
+    if(!postData) {
+      res.status(400).json({ message: 'No post found'})
+      return;
+    }
+
+    res.status(200).json(postData);
+  } catch(err) {
+    res.status(500).json(err);
+  };
 });
 
 //create a post

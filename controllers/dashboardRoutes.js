@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/posts", async (req, res) => {
-    const post = { name: "", text: "" }
+    const post = { name: "", text: "", date_posted: '', }
     res.render("posts", { post, newPost: true });
     // add , loggedIn: req.session.loggedIn back after true
   });
@@ -33,6 +33,7 @@ router.post("/post",  async (req, res) => {
         const postData = await Post.create({
             title: req.body.title,
             text: req.body.text,
+            date_posted: req.body.date_posted,
             // user_id: req.session.user_id
         });
         const post = postData.get({ plain: true });

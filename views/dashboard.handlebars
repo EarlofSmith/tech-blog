@@ -5,7 +5,9 @@
         <div class="card-body">
             <h5 class="card-title">{{post.title}}</h5>
             <p class="card-text">{{post.text}}</p>
+            <p class="card-text">{{post.date_posted}},{{post.id}}</p>
         </div>
+        <a href="/dashboard/post/{{id}}"><img src="https://www.freeiconspng.com/img/28554" alt="edit"></a>
     </div>
     {{/each}}
 {{else}}

@@ -3,14 +3,15 @@ const { User, Post, Comment } = require('../models');
 const Auth = require('../utils/auth');
 
 
-router.get('/', async (req, res) => {
-  // TODO: Render template with Sequelize data
-  res.render('homepage');
-});
+// router.get('/', async (req, res) => {
+//   // TODO: Render template with Sequelize data
+//   res.render('homepage');
+// });
 // get all posts
-router.get('/posts', Auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const postData = await Post.findAll({
+      attributes: ['id', 'title', 'text', 'date_posted'],
       include: [{
         model: User,
         attributes: ['name']
@@ -21,7 +22,6 @@ router.get('/posts', Auth, async (req, res) => {
 
     res.render('homepage', {
       posts,
-      logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);
