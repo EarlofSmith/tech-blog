@@ -5,7 +5,8 @@ const Auth = require("../../utils/auth");
 //render post page
 router.get("/", async (req, res) => {
   const post = { name: "", content: "" }
-  res.render("posts", { post, newPost: true, loggedIn: req.session.loggedIn });
+  res.render("posts", { post, newPost: true });
+  // add , loggedIn: req.session.loggedIn back after true
 });
 
 //create a post
@@ -25,7 +26,8 @@ router.post('/', async (req, res) => {
 //update a post
 
 //delete a post
-router.delete('/:id',Auth, async (req, res) => {
+// add Auth back in
+router.delete('/:id', async (req, res) => {
   try {
     const postData = await Post.destroy({
       where: {

@@ -7,7 +7,7 @@ const Auth = require("../utils/auth");
 router.get("/", async (req, res) => {
     try {
         const postData = await Post.findAll({
-            where: { user_id: req.session.user_id },
+            // where: { user_id: req.session.user_id },
             attributes: ['id', 'title', 'text', 'date_posted'],
             include: [{
                 model: User,
@@ -15,7 +15,8 @@ router.get("/", async (req, res) => {
             }]
         });
         const posts = postData.map((post) => post.get({ plain: true }));
-        res.render("dashboard", { posts, loggedIn: req.session.loggedIn });
+        res.render("dashboard", { posts, });
+        // add back loggedIn: req.session.loggedIn after posts
     } catch (err) {
         res.status(500).json({message: "An error occurred, please try again."});
     }
@@ -41,7 +42,8 @@ router.post("/post",  async (req, res) => {
 });
 
 // edit a current post
-router.put("/post/:id", Auth, async (req, res) => {
+// !!!! add back Auth
+router.put("/post/:id", async (req, res) => {
     try {
         const postData = await Post.update(
             {
@@ -61,7 +63,8 @@ router.put("/post/:id", Auth, async (req, res) => {
 });
 
 // delete a post
-router.delete("/post/:id",Auth, async (req, res) => {
+// !!!! add back Auth
+router.delete("/post/:id", async (req, res) => {
     try {
         const postData = await Post.destroy({ where: { id: req.params.id } });
         if (postData) {
@@ -75,7 +78,8 @@ router.delete("/post/:id",Auth, async (req, res) => {
 });
 
 // get post by id
-router.get('/post/:id', Auth, async (req, res) => {
+// !!!! add back Auth
+router.get('/post/:id',  async (req, res) => {
     try {
         const postData = await Post.findOne({
             where: { id: req.params.id },
