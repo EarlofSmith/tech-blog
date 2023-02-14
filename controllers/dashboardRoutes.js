@@ -93,7 +93,8 @@ router.get('/post/:id',  async (req, res) => {
         });
         if (postData) {
             const post = postData.get({ plain: true });
-            res.render('posts', { post, newPost: false, loggedIn: req.session.loggedIn });
+            res.render('posts', { post, newPost: false,  });
+            // add loggedIn: req.session.loggedIn back
         } else {
             res.status(404).json({ message: 'No post found' });
         }
@@ -101,5 +102,26 @@ router.get('/post/:id',  async (req, res) => {
         res.status(500).json(err, {message: "An error occurred, please try again."});
     }
 });
+
+router.get('/comment/:id',  async (req, res) => {
+    try {
+        const postData = await Post.findOne({
+            where: { id: req.params.id },
+            attributes: ['title', 'text']
+        });
+        if (postData) {
+            const post = postData.get({ plain: true });
+            res.render('comment', { post });
+            console.log(post);
+            // put , loggedIn: req.session.loggedIn back after false
+        } else {
+            res.status(404).json({ message: 'No post found' });
+        }
+    } catch (err) {
+        res.status(500).json(err, {message: "An error occurred, please try again."});
+    }
+});
+
+
 
 module.exports = router;

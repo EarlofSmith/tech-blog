@@ -5,12 +5,11 @@
         <div class="card-body">
             <h5 class="card-title">{{post.title}}</h5>
             <p class="card-text">{{post.text}}</p>
-            <p class="card-text">{{post.date_posted}},{{post.id}}</p>
+            <p class="card-text">{{post.date_posted}}</p>
         </div>
-        <div class="d-flex justify-content-center"> 
-          <a href="/dashboard/post/{{id}}"><img src="/images/edit.png" class="img" alt="edit"></a>
-          <a href="/dashboard/post/{{id}}"><img src="/images/delete.jpg" class="img" alt="edit"></a>
-          <a href="/dashboard/comment/{{id}}"><img src="/images/comment.jpg" class="img" alt="edit"></a>
+        <div class="form-group">
+            <label for="comment">Comments:</label>
+            <input type="text" placeholder="Enter your comments here!" id="comment" />
         </div>
     </div>
     {{/each}}
@@ -25,3 +24,5 @@
   </div>
 </div>
 {{/if}}
+
+<script src="../../js/comment.js"></script>
