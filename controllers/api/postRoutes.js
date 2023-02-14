@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
 
 //delete a post
 // add Auth back in
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', Auth, async (req, res) => {
   try {
     const postData = await Post.destroy({
       where: {

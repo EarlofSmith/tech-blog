@@ -21,10 +21,10 @@ const login = async (event) => {
   
   const signUp = async (event) => {
     event.preventDefault();
-  
+    
     const name = document.querySelector("#user-name-signup").value.trim();
     const password = document.querySelector("#password-signup").value.trim();
-
+console.log(name);
     if (name && password) {
         const response = await fetch("/api/users", {
             method: "POST",

@@ -7,7 +7,7 @@ const Auth = require("../utils/auth");
 router.get("/", async (req, res) => {
     try {
         const postData = await Post.findAll({
-            // where: { user_id: req.session.user_id },
+            where: { user_id: req.session.user_id },
             attributes: ['id', 'title', 'text', 'date_posted'],
             include: [{
                 model: User,
@@ -15,8 +15,8 @@ router.get("/", async (req, res) => {
             }]
         });
         const posts = postData.map((post) => post.get({ plain: true }));
-        res.render("dashboard", { posts, });
-        // add back loggedIn: req.session.loggedIn after posts
+        res.render("dashboard", { posts, loggedIn: req.session.loggedIn });
+        // add back  after posts
     } catch (err) {
         res.status(500).json({message: "An error occurred, please try again."});
     }
@@ -24,8 +24,8 @@ router.get("/", async (req, res) => {
 
 router.get("/posts", async (req, res) => {
     const post = { name: "", text: "", date_posted: '', }
-    res.render("posts", { post, newPost: true });
-    // add , loggedIn: req.session.loggedIn back after true
+    res.render("posts", { post, newPost: true , loggedIn: req.session.loggedIn});
+    // add  back after true
   });
 // create a new post
 router.post("/post",  async (req, res) => {
@@ -34,7 +34,7 @@ router.post("/post",  async (req, res) => {
             title: req.body.title,
             text: req.body.text,
             date_posted: req.body.date_posted,
-            // user_id: req.session.user_id
+            user_id: req.session.user_id
         });
         const post = postData.get({ plain: true });
         if (postData) {
@@ -49,7 +49,7 @@ router.post("/post",  async (req, res) => {
 
 // edit a current post
 // !!!! add back Auth
-router.put("/post/:id", async (req, res) => {
+router.put("/post/:id", Auth,  async (req, res) => {
     try {
         const postData = await Post.update(
             {
@@ -70,7 +70,7 @@ router.put("/post/:id", async (req, res) => {
 
 // delete a post
 // !!!! add back Auth
-router.delete("/post/:id", async (req, res) => {
+router.delete("/post/:id", Auth, async (req, res) => {
     try {
         const postData = await Post.destroy({ where: { id: req.params.id } });
         if (postData) {
@@ -85,7 +85,7 @@ router.delete("/post/:id", async (req, res) => {
 
 // get post by id
 // !!!! add back Auth
-router.get('/post/:id',  async (req, res) => {
+router.get('/post/:id', Auth,  async (req, res) => {
     try {
         const postData = await Post.findOne({
             where: { id: req.params.id },
@@ -93,8 +93,8 @@ router.get('/post/:id',  async (req, res) => {
         });
         if (postData) {
             const post = postData.get({ plain: true });
-            res.render('posts', { post, newPost: false,  });
-            // add loggedIn: req.session.loggedIn back
+            res.render('posts', { post, newPost: false, loggedIn: req.session.loggedIn  });
+            // add  back
         } else {
             res.status(404).json({ message: 'No post found' });
         }
@@ -111,9 +111,9 @@ router.get('/comment/:id',  async (req, res) => {
         });
         if (postData) {
             const post = postData.get({ plain: true });
-            res.render('comment', { post });
+            res.render('comment', { post, loggedIn: req.session.loggedIn });
             console.log(post);
-            // put , loggedIn: req.session.loggedIn back after false
+            // put  back after false
         } else {
             res.status(404).json({ message: 'No post found' });
         }

@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     const posts = postData.map((post) => post.get({ plain: true }));
 
     res.render('homepage', {
-      posts,
+      posts, loggedIn: req.session.loggedIn
     });
   } catch (err) {
     res.status(500).json(err);
@@ -53,7 +53,7 @@ router.get('/post/:id', Auth, async (res, req) => {
 
     if (postData) {
       const post = postData.get({plain: true});
-      res.render('showpost', {post});
+      res.render('showpost', {post, loggedIn: req.session.loggedIn });
     }else {
       res.status(404).json({message: 'No post match this id'})
     }
