@@ -14,10 +14,11 @@
   * This is a cms style blog site. It allows a user to becrated and then post blogs and comments.
 
   ## Installation Instructions
-  * npm i to install modlues then npm server to start the program which will be running in localhost:3001
+  * npm i to install modlues then npm server to start the program which will be running in localhost:3001 
 
   ## Usage
-  * 
+  * https://tech-blogs1.herokuapp.com/dashboard
+  * ![deployed page](./public/images/deployed.png)
 
   ## Credits 
   * google class ta
