@@ -1,14 +1,14 @@
 {{#if posts.length}}
     {{#each posts as |post|}}
-    <div class="card">
+    <div class="card bg-dark">
 
-        <div class="card-body">
+        <div class="card-body ">
             <h5 class="card-title">{{post.title}}</h5>
             <p class="card-text">{{post.text}}</p>
             <p class="card-text">{{post.date_posted}}, {{user.name}}</p>
         </div>
         <div class="d-flex justify-content-center"> 
-          <a href="/dashboard/post/{{id}}"><img src="/images/edit.png" class="img" alt="edit"></a>
+          <a href="/dashboard/post/{{id}}"><img src="/images/edit.png" class="img bg-dark" alt="edit"></a>
           <a href="/dashboard/post/{{id}}"><img src="/images/delete.jpg" class="img" alt="edit"></a>
           {{!-- <a href="/dashboard/comment/{{id}}"><img src="/images/comment.jpg" class="img" alt="edit"></a> --}}
         </div>

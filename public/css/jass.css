@@ -12,6 +12,10 @@ html {
   /* 2 */
 }
 
+.card-style {
+  background-color: #000000;
+  color: white;
+}
 /* Sections
    ========================================================================== */
 /**
@@ -21,6 +25,11 @@ body {
   margin: 0;
 }
 
+header {
+  color: white;
+  background-color: black;
+
+}
 /**
  * Render the `main` element consistently in IE.
  */
@@ -419,10 +428,10 @@ button {
   margin: 0;
 }
 
-a {
+/* a {
   color: #1b89bc;
   text-decoration: none;
-}
+} */
 
 a:hover {
   color: #065b83;
@@ -1190,6 +1199,8 @@ a:hover {
 
 .card .card-body {
   padding: 0.375rem;
+  background-color: black;
+  color: white;
 }
 
 .card .card-footer {
